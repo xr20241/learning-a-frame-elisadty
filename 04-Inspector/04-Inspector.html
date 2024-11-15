@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspector</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!-- A-Frame Scene container where the 3D elements will be placed -->  
+         <!-- Box 1-->    
+        <a-box id="box1" 
+               color="#aa0000"           <!-- Set color for the box -->
+               position="0 2.5 -3"       <!-- Position of the box: x=0, y=2.5, z=-3 -->
+               material="color: #ff80ff" <!-- Material color is set to a light purple -->
+               geometry=""               <!-- Geometry defaults to a box shape -->
+               rotation="0 45 0">        <!-- Rotation of 45 degrees on the Y-axis -->
+        </a-box>        
+     <!-- Box 2-->
+        <a-box id="box2" 
+               rotation="0 0 45"         <!-- Rotation of 45 degrees on the Z-axis -->
+               scale="0.5 1 0.5"         <!-- Scaling along X and Z axes to make it smaller -->
+               color="#00aa00"           <!-- Green color for the box -->
+               position="2 1 -3">        <!-- Position of the box at x=2, y=1, z=-3 -->
+        </a-box>   
+        <!-- Box 3-->     
+        <a-box id="box3" 
+               color="#aaaa00"          
+               position="-2 1 -3"      
+               material="color: #808080" 
+               geometry=""              
+               scale="2 2 2">          
+        </a-box>  
+
+        <!-- Creating an octahedron with a cyan material color -->
+        <a-entity geometry="primitive: octahedron"  <!-- Specifies that the geometry is an octahedron -->
+                  material="color: #0080c0"        
+                  position="0 0 -3">               
+        </a-entity>
+    </a-scene>
+</body>
+</html>
