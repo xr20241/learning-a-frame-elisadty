@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Scene</title>
+    <!-- Linking the A-Frame library -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+    <!-- Setting up the A-Frame scene container -->
+    <a-scene>
+        <!-- Creating a sphere object in the scene -->
+        <a-sphere
+            color="pink"           <!-- we add a color to the sphere (pink) -->
+            radius="0.5"           <!-- Sphere radius set to 0.5 -->
+            position="1 1.5 -3"    <!-- Sphere position on the x, y, z axes -->
+            wireframe="true"       <!-- Displays sphere as a wireframe -->
+        ></a-sphere>
+        <!-- Then, we create a box object -->
+        <a-box
+            color="#ffff00"         <!-- we add a color to the box (yellow) -->
+            position="-1 1.5 -3"    <!-- Box position on the x, y, z axes -->
+            rotation="0 45 0"       <!-- Box rotation around the x, y, and z axes -->
+            scale="1 2 1"           <!-- Box scale factors along x, y, and z axes -->
+        ></a-box>
+    </a-scene>
+</body>
+</html>
