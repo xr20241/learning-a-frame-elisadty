@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texture</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body> 
+    <a-scene>
+        <!-- Defining assets like textures for reuse in the scene -->
+        <a-assets>
+            <!-- Brick texture images used for the 3D objects -->
+            <img src="textures/Brick/basecolor.jpg" id="base">   <!-- Base color texture for the objects -->
+            <img src="textures/Brick/normal.jpg" id="normal">    <!-- Normal map to add surface detail -->
+            <img src="textures/Brick/height.png" id="height">    <!-- Height map for depth effects -->
+        </a-assets>
+        
+        <!-- Creating a textured box with multiple settings -->
+        <a-box
+            src="#base"                    <!-- Applies the base color texture to the box -->
+            repeat="2 2"                   <!-- Repeats the texture twice on each face of the box -->
+            normal-map="#normal"           <!-- Applies the normal map for extra surface detail -->
+            normal-texture-repeat="2 2"    <!-- Repeats the normal map texture -->
+            position="-1 1.5 -2"           <!-- Box position along x(=-1), y(=1.5), z(=-2) axes -->
+        ></a-box>
+        <!-- Creating a textured sphere with the base texture -->
+        <a-sphere
+            src="#base"                    <!-- Applies the base color texture to the sphere -->
+            position="1 1.5 -2"            <!-- Sphere position on the x(=-1), y(=1.5), z(=-2) axes -->
+        ></a-sphere>
+    </a-scene>
+</body>
+</html>
