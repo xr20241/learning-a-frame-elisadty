@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Based AR</title>
+    <!-- Include the A-Frame library for building 3D scenes in the browser -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- Include A-Frame Look At Component for making entities look at others -->
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <!-- Include AR.js library for building augmented reality experiences with A-Frame -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <!-- Include A-Frame Physics System for physical interactions in the 3D scene -->
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+</head>
+<body style="margin:0px;overflow:hidden;">
+    <script>
+        // Register a custom A-Frame component to retrieve the user's location
+        AFRAME.registerComponent("locationfinder", {
+            init:function() {
+                // Get the current geolocation of the user
+                navigator.geolocation.getCurrentPosition(function(location) {
+                    console.log(location);  // Log the location information to the console
+                });
+            }
+        });
+    </script>
+    <a-scene embedded arjs="source:webcam;">
+        <!-- Define the camera with simulated GPS coordinates for testing -->
+        <a-camera gps-camera="simulateLatitude:-6.176770;simulateLongitude:106.826241" rotation-reader>
+        </a-camera>
+        <!-- Create a text entity that will be anchored to a specific GPS location -->
+        <a-text value="This place" scale="15 15 15"
+            look-at="[gps-camera]"   
+            align="center"
+            gps-entity-place="latitude:-6.175553;longitude:106.827118"  
+        ></a-text>
+    </a-scene>
+</body>
+</html>

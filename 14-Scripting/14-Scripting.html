@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripting</title>
+    <!-- A-Frame is developed on Three.js -->
+    <!-- Based on the entity-component framework, 
+         everything is within the scene and is called an entity. 
+         Each entity can have one or more components. -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <script>
+        // Registering a new component: 'foo'
+        AFRAME.registerComponent('foo', {
+            // Schema defining two string properties with default values
+            schema: {
+                message1: { type: "string", default: "Foo" },
+                message2: { type: "string", default: "Holla" }
+            },
+
+            // Update function that runs when the component is updated
+            update: function(oldData) {
+                console.log("UPDATED");
+            },
+
+            // Tick function that runs every frame (for animations or continuous updates)
+            tick: function() {
+                // Rotating the mesh (3D object) in the Y-axis
+                this.el.getObject3D('mesh').rotation.y += 0.01;
+            },
+
+            // Init function is called when the component is first attached to the entity
+            init: function() {
+                // Logging the messages from the component's schema
+                console.log("%cHello " + this.data.message1 + ", " + this.data.message2, "font-size:2em");
+                console.log(this.el);  // Logging the entity to the console
+                
+                let data = this.data;  // Storing the data for later use
+
+                // Changing the material color of the entity's mesh to yellow
+                this.el.getObject3D('mesh').material.color = new THREE.Color('yellow');
+                
+                // Adding an event listener for the 'click' event on the entity
+                this.el.addEventListener('click', function(ev) {
+                    ev.srcElement.setAttribute('foo', 'message1:Alternative');  // Updating the component's property
+
+                    // Fetching the current position of the clicked entity
+                    let clickedData = ev.srcElement.getAttribute('position');
+                    
+                    // Moving the entity upwards by 0.5 units on the Y-axis
+                    ev.srcElement.setAttribute(
+                        'position', 
+                        clickedData.x + ' ' + 
+                        (clickedData.y + 0.5) + ' ' + 
+                        clickedData.z
+                    );
+                });
+            }
+        });
+    </script>
+
+    <a-scene>
+        <!-- Camera and cursor setup for user interaction -->
+        <a-camera><a-cursor></a-cursor></a-camera>
+
+        <!-- Box 1 with a 'foo' component and a red material -->
+        <a-box
+            foo
+            id="box1"
+            material="color:red"
+            position="-2 1.5 -3"
+        ></a-box>
+
+        <!-- Box 2 with custom messages passed to the 'foo' component and a green wireframe material -->
+        <a-box
+            foo="message1:Box,message2:Adios"
+            id="box2"
+            material="color:green;wireframe:true"
+            position="2 1.5 -3"
+        ></a-box>
+    </a-scene>
+</body>
+</html>

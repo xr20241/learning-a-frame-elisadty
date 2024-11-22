@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Primitive</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+    <script>
+        // Register a custom A-Frame component named 'kotakkosong'
+        AFRAME.registerComponent('kotakkosong', {
+            // Schema defines a property 'ukuran' with a default value of 1
+            schema: {
+                ukuran: { type: "number", default: 1 }
+            },
+            // Tick function that continuously rotates the box entity
+            tick: function() {
+                this.kotak.rotation.y += 0.1; // Rotate the box on its Y-axis
+            },
+            // Initialization function to create the box and donut
+            init: function() {
+                let data = this.data; // Access component data (size)
+                
+                // Material properties for the box and donut
+                this.bahan = new THREE.MeshStandardMaterial({
+                    color: 0xff00ff,  // Purple color
+                    wireframe: true    // Display as a wireframe
+                });
+
+                // Create the box geometry based on the 'ukuran' property
+                this.geometriKotak = new THREE.BoxGeometry(
+                    data.ukuran, data.ukuran, data.ukuran, 3, 3, 3
+                );
+                // Create a mesh with the box geometry and material
+                this.kotak = new THREE.Mesh(this.geometriKotak, this.bahan);
+
+                // Create the donut geometry
+                this.geometriDonat = new THREE.TorusBufferGeometry(1.5, 0.2, 45, 45);
+                // Create a mesh with the donut geometry and material
+                this.donat = new THREE.Mesh(this.geometriDonat, this.bahan);
+
+                // Create a group to combine the box and donut
+                this.kotakdonat = new THREE.Group();
+                this.kotakdonat.add(this.kotak); // Add the box to the group
+                this.kotakdonat.add(this.donat); // Add the donut to the group
+
+                // Set the group as the 3D object for this entity
+                this.el.setObject3D('mesh', this.kotakdonat);
+            }
+        })
+    </script>
+
+    <!-- A-Frame scene with a custom entity 'kotakkosong' -->
+    <a-scene>
+        <a-entity kotakkosong position="0 1.5 -3"></a-entity>
+    </a-scene>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model (glb/glTF)</title>
+    <!-- A-Frame library for building 3D scenes -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- aframe-extras library to support additional A-Frame features like animation mixers -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!-- a-asset is used to preload 3D assets before they are used in the scene -->
+        <a-asset>
+            <!-- a-asset-item loads the 3D model (in glTF format) and assigns it an ID for referencing -->
+            <a-asset-item id="laptop" src="models/Notebook.gltf"></a-asset-item>
+        </a-asset>
+
+        <!-- First entity with the glTF model referenced by its ID -->
+        <a-entity
+            gltf-model="#laptop"
+            position="-5  0 -5"
+            rotation="0 180 0"
+            animation-mixer="
+                clip: ArmatureAction;
+                loop: pingpong;
+            "
+        ></a-entity>
+
+        <!-- Second entity using glTF model directly with the src attribute -->
+        <a-gltf-model
+            src="models/Notebook.gltf"
+            position="0  0 -5"
+            rotation="0 90 0"
+            animation-mixer
+        ></a-gltf-model>
+
+        <!-- Third entity with a separate model and animation mixer -->
+        <a-entity
+            gltf-model="models/Notebook.gltf" 
+            position="5  0 -5"
+            animation-mixer="
+                clip: ArmatureAction;
+                loop: pingpong;
+            "
+        ></a-entity>
+    </a-scene>
+</body>
+</html>

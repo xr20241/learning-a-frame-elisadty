@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+    <script>
+        // Registering the 'soundcontroller' component to control the sound
+        AFRAME.registerComponent('soundcontroller', {
+            init:function() {
+                let el = this.el;
+                el.addEventListener('click', function(ev) {
+                    let id = ev.srcElement.id;  // Getting the ID of the clicked element
+                    console.log(`%c${id}`,"font-size:2em;");
+                    let speaker = document.querySelector("#speaker");  // Find the speaker entity
+                    if (id == "play") {
+                        speaker.components.sound.playSound();  // Play the sound
+                    } else if (id == "pause") {
+                        speaker.components.sound.pauseSound();  // Pause the sound
+                    } else {
+                        speaker.components.sound.stopSound();  // Stop the sound
+                    }
+                });
+            }
+        });
+    </script>
+    <a-scene>
+        <a-camera>
+            <a-cursor raycaster="objects:a-box"></a-cursor> <!-- Cursor for interaction -->
+        </a-camera>
+        
+        <!-- Sky and ocean for a scenic background -->
+        <a-sky color="lightblue"></a-sky>
+        <a-ocean width="100" depth="100" density="40"></a-ocean>
+        
+        <!-- 3D model of an island -->
+        <a-gltf-model
+            src="models/Island.gltf"
+            gltf-model="models/Island.gltf"
+            scale="0.1 0.1 0.1"
+            rotation="0 150 0"
+            position="0 0 -3"
+        ></a-gltf-model>
+        
+        <!-- Speaker box with the sound component -->
+        <a-box id="speaker" color="#F00" position="0 1.5 -3"
+            sound="src:audios/Cartoon.wav;autoplay:false;"
+        ></a-box>
+
+        <!-- Play, Pause, and Stop control buttons -->
+        <a-box soundcontroller id="play" color="#500" position="0 1 -2" scale="0.5 0.5 0.5"></a-box>
+        <a-box soundcontroller id="pause" color="#550" position="1.5 1 -2" scale="0.5 0.5 0.5"></a-box>
+        <a-box soundcontroller id="stop" color="#050" position="-1.5 1 -2" scale="0.5 0.5 0.5"></a-box>
+    </a-scene>
+</body>
+</html>
